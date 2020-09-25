@@ -2053,6 +2053,12 @@ and rewrite link paths to make blogging more seamless."
     ;; (message "[ox-hugo-link DBG] link filename: %s" (expand-file-name (plist-get (car (cdr link)) :path)))
     ;; (message "[ox-hugo-link DBG] link type: %s" type)
     (cond
+     ;; Special handler for some link type
+     ((member type '("orgit-rev"))
+      (format
+       "[%s](%s)"
+       desc
+       (org-export-custom-protocol-maybe link desc 'md)))
      ;; Link type is handled by a special function.
      ((org-export-custom-protocol-maybe link desc 'md))
      ((member type '("custom-id" "id" "fuzzy"))
